@@ -1,0 +1,8 @@
+{
+  "name": "trello-card-table-powerup",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Trello Power-Up: render GFM markdown tables from a card description in the card-back section",
+  "scripts": { "test": "node --test test/" }
+}
