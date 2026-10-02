@@ -1,0 +1,7 @@
+{
+  "name": "Description tables",
+  "description": "Renders GFM markdown tables found in a card's description as a real table in the card-back section.",
+  "author": "happytomatoe",
+  "icon": "https://happytomatoe.github.io/trello-card-table-powerup/img/icon.svg",
+  "capabilities": ["card-back-section"]
+}

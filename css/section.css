@@ -1,0 +1,40 @@
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font: 14px/1.45 -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+  color: #172b4d;
+}
+
+#wrap {
+  overflow-x: auto;
+}
+
+table.desc-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.desc-table th,
+table.desc-table td {
+  border: 1px solid #dfe1e6;
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.desc-table th {
+  background: #f4f5f7;
+  font-weight: 600;
+}
+
+table.desc-table tr:nth-child(even) td {
+  background: #fafbfc;
+}
+
+.empty {
+  color: #626f86;
+  font-style: italic;
+}
