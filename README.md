@@ -41,11 +41,25 @@ node --test                     # 8 parser tests, fixture-driven, no dependencie
 
 ## Deploy and register
 
-1. Push to a **public** repo (GitHub Pages on a free account requires public) and enable Pages
-   from `main` at the repo root.
-2. Register the connector URL `…/index.html` at <https://trello.com/power-ups/admin>, enable
-   the **card-back-section** capability (the portal set must equal `initialize()`'s keys).
-3. Enable the Power-Up on the board, open a card whose description contains a pipe table.
+Deployed (GitHub Pages, `main` at the repo root):
+**https://happytomatoe.github.io/trello-card-table-powerup/**
+
+Registering it with Trello (manual, at <https://trello.com/power-ups/admin>):
+
+1. Select the **Body** workspace → **New** Power-Up.
+2. **iframe connector URL**: `https://happytomatoe.github.io/trello-card-table-powerup/index.html`
+3. **Capabilities** tab → enable **`card-back-section`** only. The portal set must equal the keys
+   passed to `initialize()` in `js/client.js`, or the Power-Up silently does nothing.
+4. Name / description / icon: the icon URL is
+   `https://happytomatoe.github.io/trello-card-table-powerup/img/icon.svg` (gray line glyph —
+   `card-back-section` requires gray, passed as a string URL).
+5. Open the **Body** board → **Power-Ups** → **Custom** → enable the new Power-Up, then open the
+   anger card.
+
+On-card checks: the section titled **Description tables** appears below the description with the
+3×4 table; no raw `|` and no fenced content in it; edit a cell in the description's pipe table,
+save, click **Refresh** → the table updates; a card with no table shows the muted empty-state
+line; disabling the Power-Up leaves the card as it was.
 
 ## Constraints worth remembering
 
