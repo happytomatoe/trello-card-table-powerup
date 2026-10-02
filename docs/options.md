@@ -36,6 +36,11 @@ content inside cells, and any future GFM table syntax would have to be added by 
 | GFM table fidelity | pipe tables + bold/italic/code/links | full | full | full, 100% spec |
 | Duplicate-render risk | none | none | **yes** — must keep only `<table>` nodes | none |
 
+"Our own code" is the executed function source as measured by the POC. On disk, option 1 ships
+as `js/parse-table.js` + `js/inline.js` = 2,890 bytes including comments and JSDoc; the DOM
+walk that turns `{header, rows}` into a table lives in `js/section.js` (also ours, shared by
+every route).
+
 ## Where the code lives (the switch points)
 
 ```
@@ -147,8 +152,9 @@ and its own comparison page recommends **marked** for trusted input.
 
 1. `node --test` — the parser suite must stay green (fixture: `test/fixtures/anger-card-desc.md`,
    asserts exactly one table, 3×4, fenced A and B skipped).
-2. `grep -rn "innerHTML" js/` → no hits (options 1, 2 and 4); option 3 instead requires the
-   `DOMPurify.sanitize(marked.parse(...))` order above.
+2. No markup-by-string: `grep -rnE "innerHTML[[:space:]]*=" js/` → no hits (options 1, 2 and 4).
+   Option 3 is the exception and instead requires the `DOMPurify.sanitize(marked.parse(...))`
+   order above. (The one `innerHTML` occurrence in `js/inline.js` is the comment stating the rule.)
 3. Re-run the local smoke: serve the repo root and open `section.html` with `TrelloPowerUp`
    stubbed, or load the deployed section page on the anger card.
 4. Check the card in Trello: one table, no raw pipes, no duplicated description text, and the
