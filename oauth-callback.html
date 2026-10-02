@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trello OAuth 2.0 callback</title>
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; max-width: 46rem; margin: 3rem auto; padding: 0 1rem; }
+    code, pre { font-family: ui-monospace, monospace; font-size: 13px; }
+    pre { background: #f4f4f5; border: 1px solid #d4d4d8; border-radius: 6px; padding: .75rem; overflow-wrap: anywhere; white-space: pre-wrap; }
+    button { font: inherit; padding: .35rem .8rem; border: 1px solid #a1a1aa; border-radius: 6px; background: #fff; cursor: pointer; }
+    .err { color: #b91c1c; }
+    .hint { color: #52525b; }
+  </style>
+</head>
+<body>
+  <h1>Trello OAuth 2.0 callback</h1>
+  <div id="out">Reading the authorization response…</div>
+  <script>
+    (function () {
+      var p = new URLSearchParams(location.search);
+      var code = p.get("code");
+      var error = p.get("error");
+      var out = document.getElementById("out");
+
+      if (error) {
+        out.innerHTML = '<p class="err">Authorization failed: <code></code></p>';
+        out.querySelector("code").textContent = error + (p.get("error_description") ? " — " + p.get("error_description") : "");
+        return;
+      }
+      if (!code) {
+        out.innerHTML = '<p class="err">No <code>code</code> parameter in this URL.</p>';
+        return;
+      }
+
+      var pre = document.createElement("pre");
+      pre.textContent = code;
+      var btn = document.createElement("button");
+      btn.textContent = "Copy code";
+      btn.addEventListener("click", function () {
+        navigator.clipboard.writeText(code).then(function () {
+          btn.textContent = "Copied";
+        });
+      });
+      var note = document.createElement("p");
+      note.className = "hint";
+      note.textContent = "Paste this into: trello-oauth login --code <code>   (or just run trello-oauth login and paste it at the prompt)";
+      out.innerHTML = "";
+      out.append(pre, btn, note);
+
+      // Drop the query string from the address bar; the code is already on screen.
+      history.replaceState(null, "", location.pathname);
+    })();
+  </script>
+</body>
+</html>

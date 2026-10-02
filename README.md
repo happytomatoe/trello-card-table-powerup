@@ -22,6 +22,8 @@ img/icon.svg        gray line glyph (card-back-section requires a gray icon)
 manifest.json       capability list, kept in sync with js/client.js
 docs/options.md     the four parser routes, measured, and how to switch
 test/               parser suite + the real card description as a fixture
+oauth-callback.html OAuth 2.0 redirect target for the trello-oauth CLI: displays the
+                    authorization code for copy/paste, transmits nothing, no dependencies
 ```
 
 ## Local development
