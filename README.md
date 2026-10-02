@@ -101,6 +101,19 @@ The reusable recipe, independent of this repo's URLs.
 `git push` → the host rebuilds (GitHub Pages ≈ 1 min) → reload the board. Nothing about the
 Power-Up is stored in Trello, so a redeploy is the whole update path.
 
+**What can and cannot be automated**
+
+- **Registering** a Power-Up is portal-only: the Plugins REST group exposes `GET /1/plugins/{id}`,
+  `PUT /1/plugins/{id}` (metadata: name, icon, public flag), listings and privacy compliance —
+  there is no create endpoint.
+- **Enabling/disabling on a board** *is* scriptable: `POST /1/boards/{id}/boardPlugins`
+  (`idPlugin`), `DELETE /1/boards/{id}/boardPlugins/{idPlugin}`, `GET /1/boards/{id}/boardPlugins`
+  to confirm. `idPlugin` is the id in the admin URL (`trello.com/power-ups/<idPlugin>/admin`).
+- Those plugin endpoints are documented as **not accessible to OAuth 2.0 apps**, so they need a
+  classic API key + token generated on the Power-Up's own **API Key** tab. The official Trello
+  MCP server has no Power-Up tool at all (15 tools: boards, lists, cards, checklists, members,
+  search, inbox, planner).
+
 **Debugging silent failures** — in the order they usually bite
 
 - Connector opened directly in a browser renders **blank**: correct, it only runs inside
